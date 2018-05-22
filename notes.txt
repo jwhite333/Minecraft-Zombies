@@ -1,0 +1,163 @@
+Notes -
+
+Zombie Spawn Locations:
+First Room - 
+	1. 183 101 -419
+	2. 169 101 -403
+	3. 172 101 -420
+	4. 187 107 -403
+Downstairs - 
+	5. 194 101 -408
+	6. 200 101 -395
+Upstairs - 
+	7. 161 107 -410
+	8. 162 107 -399
+	9. 154 107 -401
+	10. 145 107 -403
+Rotunda - 
+	11. 142 98 -381
+	12. 151 98 -388
+	13. 157 103 -386
+Outside - 
+	14. 215 97 -399
+	15. 216 97 -377
+Overlook - 
+	16. 213 97 -370
+	17. 204 102 -371
+Back Corner - 
+	18. 154 98 -375
+	19. 147 98 -366
+Stage - 
+	20. 190 98 -359
+	21. 160 98 -359
+Theatre Floor - 
+	22. 191 97 -376
+	23. 161 97 -377
+
+
+Scoreboard variables: TODO: complete
+
+- Zombies
+  * SpawnTimer
+  * 
+- Constants
+  * SpawnTimerMax
+  * 
+- Debug
+  * ZombiesSpawned
+- Blacklist
+  * <Entities>
+- Points
+  * Round
+  * <Players>
+- Kills
+  * <killCount>
+- Deaths
+  * <deathCount>
+- Temp
+  * ZombiesRemaining
+
+Execution: TODO: complete
+
+Ideas:
+
+* Add two spider spawners
+* Create minecraft compiler for an instruction set (Not really related to this project)
+
+
+Helpful tutorials:
+	learning mninecraft command block programming 1-4
+	dragnoz making store for optimal buying/selling
+Variables
+
+
+
+Container:
+	/summon minecraft:armor_stand 217 103 -438 {Tags:["current_spawner"],NoGravity:1}
+
+Update container score:
+	/scoreboard players add @e[type=armor_stand,tag=current_spawner] DoSpawning 1
+
+Chain:
+	/execute @e[type=armor_stand,tag=current_spawner,score_DoSpawning=1] ~ ~ ~ setblock 225 101 -408 minecraft:redstone_block
+
+If spawning --> if room # --> if timer == 0 --> if currentspawner==# --> spawn
+
+first spawner is at 217 100 -438 (second room)
+
+/execute @e[type=armor_stand,tag=current_spawner] ~ ~-3 ~ setblock ~ ~ ~ minecraft:chain_command_block 13 replace {auto:1b,Command:"summon minecraft:zombie 194 101 -408"}
+/tp @e[type=armor_stand,tag=current_spawner] ~ ~ ~-2
+
+Purchasing
+/scoreboard players test @p[r=5] Points 200 * --> (impulse)
+  /scoreboard players remove @p Points 200 --> (chain, conditional)
+    /give @p minecraft:iron_sword (chain, conditional)
+
+
+  Weapons:
+    1. Iron sword: /give @p minecraft:iron_sword
+    2. Bow: /give @p minecraft:bow 1 0 {Unbreakable:1,ench:[{id:51,lvl:1}],display:{Lore:["Ininity Bow"]}}
+          /give @p minecraft:arrow
+
+    1. Infinite bow /give @p minecraft:bow 1 0 {Unbreakable:1,ench:[{id:51,lvl:1}]} + /give @p minecraft:arrow
+    1. iron sword /give @p minecraft:iron_sword 1 0 {Unbreakable:1}
+
+    2. Flame Bow /give @p minecraft:bow 1 0 {Unbreakable:1,ench:[{id:51,lvl:1},{id:50,lvl:10}]} + /give @p minecraft:arrow
+    2. Flame Sword /give @p minecraft:iron_sword 1 0 {Unbreakable:1,ench:[{id:20,lvl:10}]}
+
+    3. Power 5 Bow /give @p minecraft:bow 1 0 {Unbreakable:1,ench:[{id:51,lvl:1},{id:48,lvl:5}]} + /give @p minecraft:arrow
+    3. Sharpness 5 Sword /give @p minecraft:iron_sword 1 0 {Unbreakable:1,ench:[{id:16,lvl:5}]}
+
+    4. Iron Armor
+    4. Golden Armor
+
+    5. Diamond Sword Power 5
+    6. Shield
+
+    6. 
+
+    Pack-a-Punch. 
+      Give a bunch of enchantments and an avil. Pay with XP
+
+
+Select swords:
+/testfor @p[r=10] {SelectedItem:{id:"minecraft:diamond_sword",tag:{display:{Name:"Item Name"}}}}
+
+Adding the label for mobs that were struck.
+
+/scoreboard players tag @e[type=Creeper,tag=!Hurt] add Hurt {HurtTime:10s}
+Remove the label when the value is 9.
+
+/scoreboard players tag @e[type=Creeper,tag=Hurt] remove Hurt {HurtTime:9s}
+Target the mob based on the "Hurt" tag.
+
+/execute @e[type=Creeper,tag=Hurt] ~ ~ ~ /effect @a minecraft:slowness
+
+
+TODO:
+  - add grenades
+    * create custom splash potion
+    * detect when it hits the ground, then play sound and particle effect of explosion and damage entities in r=4 or something
+    * execute @a ~ ~ ~ /playsound entity.splash_potion.break master
+    * testfor air around the potion then execute when it fails
+  - add wither sword
+    * add player to wither_sword group
+    * test for hurt zombies, if the wither group player is closest, execute wither effect and play particles
+  - add leaderboard
+    * at end of the game check against 3 scores and put heads with tags on them to show the score
+
+    grenades:
+
+    /give @p minecraft:splash_potion 1 0 {display:{Name:"Grenade"}}
+
+    /scoreboard players set @e[type=Potion] Grenade 1 {Potion:{tag:{display:{Name:"Grenade"}}}}
+    /execute @e[score_Grenade_min=1] ~ ~ ~ testforblock ~ ~-1 ~ minecraft:air
+    /execute @e[score_Grenade_min=1] ~ ~ ~ setblock ~ ~ ~ minecraft:redstone_block
+
+
+    testfor @e[score_Grenade_min=1]
+    execute @e[score_Grenade_min=1] ~ ~ ~ summon minecraft:armor_stand ~ ~10 ~ {Tags:["grenade_marker"],NoGravity:1}
+    execute @e[type=armor_stand,tag=grenade_marker,c=1] ~ ~ ~ kill @e[type=armor_stand,tag=grenade_marker,c=1,r=1]
+
+
+    execute @e[score_Grenade_min=1] ~ ~2 ~ /tp @e[type=armor_stand,tag=grenade_marker,c=1] @s
