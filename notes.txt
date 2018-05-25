@@ -135,16 +135,18 @@ Target the mob based on the "Hurt" tag.
 
 
 TODO:
-  - add grenades
-    * create custom splash potion
-    * detect when it hits the ground, then play sound and particle effect of explosion and damage entities in r=4 or something
-    * execute @a ~ ~ ~ /playsound entity.splash_potion.break master
-    * testfor air around the potion then execute when it fails
-  - add wither sword
+  - fix grenade issues
+    * Fix non-player entity check
+    * add more object detection
+  - add wither sword (Questionably necessary after grenade addition)
     * add player to wither_sword group
     * test for hurt zombies, if the wither group player is closest, execute wither effect and play particles
   - add leaderboard
     * at end of the game check against 3 scores and put heads with tags on them to show the score
+  - Remove most of the torches to make it darker
+  - Raise XP cost of pack-a-punch enchantments
+  - Add spider spawners / more spawners
+  - Raise zombie count when last room is opened
 
     grenades:
 
@@ -161,3 +163,37 @@ TODO:
 
 
     execute @e[score_Grenade_min=1] ~ ~2 ~ /tp @e[type=armor_stand,tag=grenade_marker,c=1] @s
+
+    Grenades for reall:
+
+    testfor grenade
+      add score to grenade
+      summon armor stand above grenade
+      add one point to lifetime for each stand
+
+    testfor @e[score_Grenade_min=1]
+      scoreboard players set GrenadeLive Grenade 1
+      execute @e[score_Grenade_min=1] ~ ~ ~ summon minecraft:armor_stand ~ ~100 ~ {Tags:["grenade_marker"],NoGravity:1}
+      scoreboard players add @e[type=armor_stand,tag=grenade_marker] Lifetime 1
+
+    testfor grenade score
+      testfor grenade entity
+        if no grenade entity found
+          blow up grenade at armor stand with lifetime == 1
+
+    testfor @e[score_Grenade_min=1]
+      scoreboard players test GrenadeLive Grenade 1 *
+        testforblock ~ ~ ~2 minecraft:repeating_command_block -1 {SuccessCount:0}
+          scoreboard players set Explode Grenade 1
+          scoreboard players reset GrenadeLive Grenade
+          execute @e[score_Lifetime=1] ~ ~-100 ~ particle hugeexplosion ~ ~ ~ 0 0 0 0
+          execute @e[score_Lifetime=1] ~ ~-100 ~ playsound minecraft:entity.generic.explode voice @p
+          execute @e[score_Lifetime=1] ~ ~-100 ~ kill @e[type=!Player,r=4]
+          scoreboard players test Explode Grenade 1 *
+          kill @e[type=armor_stand,tag=grenade_marker]
+          scoreboard players reset Explode Grenade
+
+
+
+
+
