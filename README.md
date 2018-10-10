@@ -3,22 +3,23 @@
 ![alt text][gameplay]
 
 [gameplay]: ./readme-resources/gameplay.png "Gameplay"
+Fully functional minigame based on the Black Ops 1 Kinodertoten map. No mods used, powered entirely with [command blocks](https://minecraft.gamepedia.com/Command_Block)
 
 # Prerequisites
 1. Minecraft: https://minecraft.net/en-us/
 
 # 1. Installing
-## 1.1. Clone this repository
+## 1.1. Clone (download) this repository
 >Note: If using the `"Download as .zip"` method, make sure to rename the folder to exclude the `-master` extension
 
 ![alt text](./readme-resources/rename.png "Extracting")
 
 ## 1.2 Copy the folder into the appropriate Minecraft save location
-(Windows)
+On Windows:
 
 ![alt text](./readme-resources/folder-location.png "Save Location")
 
-(Linux)
+On Linux:
 ```bash
 # From command line:
 cp -r ~/Downloads/Minecraft-Zombies ~/.minecraft/saves
@@ -35,10 +36,10 @@ Due to changes in the Minecraft 1.13 release, this game only works as of release
 
 ![alt text](./readme-resources/release-12.2.png "Adding release 1.12.x")
 
-## 2.3 Awesome, Now you just have to select release 1.12.x before you click play!
+## 2.3 Select release 1.12.x as the active version
 ![alt text](./readme-resources/selecting-other-version.png "Selecting version 1.12.x")
 
-# 3. Playing
+# 3. Gameplay
 Start Minecraft and check out the level you just added!
 
 ![alt text](./readme-resources/levels.png "Level")
@@ -59,13 +60,13 @@ Start Minecraft and check out the level you just added!
             ├── data/
             └── etc...
 
-## Ok I'm in game, now what?
+## 3.1 First steps
 
-### 1. You should have spawned in the main room. No Zombies will spawn yet, but that's a good thing
-#### Locate the "Reset" and "Start" buttons (under the stairs) and press them in that order: Reset, then Start
+#### After loading the level, you should have spawned in the main room. No zombies will spawn yet, but that's a good thing
+### 3.1.1 Locate the "Reset" and "Start" buttons (under the stairs) and press them in that order: Reset, then Start
 ![alt text](./readme-resources/start-reset.png "Start and Reset Buttons")
 
-### 2. Cool! You just started the game!
+#### Cool! You just started the game!
 #### You were just teleported to the center of the first room, given 3 Grenades and 200 points
 #### Oh, also Zombies are spawning...
 ![alt text](./readme-resources/game-start.png "Initial Spawn")
@@ -74,15 +75,15 @@ Start Minecraft and check out the level you just added!
 
 > Also you have a small health regeneration enchantment, but it's quite slow!
 
-### 3. Use your points to buy weapons or open doors, just like the real game
+### 3.2 Use your points to buy weapons or open doors, just like the original game
 ![alt text](./readme-resources/sword-buying.png "First Sword")
 
-### 4. Survive!
+### 3.3 Survive!
 #### Tip: Grenades can help a lot, but don't give you any points
 ![alt text](./readme-resources/grenade.png "Grenade!")
 
-# Editing
-It is Minecraft after all, what if you want to make changes?
+# 4. Editing
+It is Minecraft, after all; what if you want to make changes?
 #### Go crazy! And submit a pull request if you make something you want to share
 >The program structure is entirely made up of command blocks placed in and around the map. The core functions are outside:
 
